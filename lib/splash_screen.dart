@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:audioplayers/audio_cache.dart';
 import 'package:flutter/material.dart';
-import 'package:quizzler/home_screen.dart';
+import 'package:quizzler/QuizPage.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void _navigateToHome() {
     Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
+        MaterialPageRoute(builder: (BuildContext context) => QuizPage()));
   }
 
   @override
