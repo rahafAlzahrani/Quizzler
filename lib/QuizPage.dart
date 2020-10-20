@@ -10,14 +10,10 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  // This is variable to track whether the (F/T) button pressed or not.
-  //var pressed = false;
-
-  // This is function to change the color of (F/T) button when pressed.
-  //void whenPressed() {}
   List<Icon> scoreKeeper = [];
 
   void checkAnswer(bool userPickedAnswer) {
+    //get correct answer from quizBank list
     bool correctAnswers = quizBrain.getCorrectAnswer();
     setState(() {
       //check if we've reached the end of the quiz.
@@ -76,6 +72,50 @@ class _QuizPageState extends State<QuizPage> {
     });
   }
 
+  TextButton buildButton({bool answer, Color buttonColor, String buttonText}) {
+    return TextButton(
+      onPressed: () {
+        checkAnswer(answer);
+      },
+      child: Container(
+        margin: answer == true
+            ? EdgeInsets.only(left: 20)
+            : EdgeInsets.only(right: 20),
+        height: 70,
+        width: 120,
+        decoration: BoxDecoration(
+          color: buttonColor,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black38.withOpacity(0.25),
+              spreadRadius: 0.5,
+              blurRadius: 10,
+              offset: Offset(3, 3), // changes position of shadow
+            ),
+          ],
+        ),
+        child: Center(
+          child: Text(
+            buttonText,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w800,
+              color: Colors.white,
+              decoration: TextDecoration.none,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -130,95 +170,25 @@ class _QuizPageState extends State<QuizPage> {
           SizedBox(
             height: 10,
           ),
+
           //hold true and false buttons
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               //button True
-              TextButton(
-                onPressed: () {
-                  checkAnswer(true);
-                },
-                child: Container(
-                  margin: EdgeInsets.only(left: 20),
-                  height: 70,
-                  width: 120,
-                  decoration: BoxDecoration(
-                    color: Colors.lightGreen,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black38.withOpacity(0.25),
-                        spreadRadius: 0.5,
-                        blurRadius: 10,
-                        offset: Offset(3, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  child: Center(
-                    child: Text(
-                      'True',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              buildButton(
+                  answer: true,
+                  buttonColor: Colors.lightGreen,
+                  buttonText: 'True'),
+              buildButton(
+                  answer: false, buttonColor: Colors.red, buttonText: 'False'),
               //button false
-              TextButton(
-                onPressed: () {
-                  checkAnswer(false);
-                },
-                child: Container(
-                  margin: EdgeInsets.only(right: 20),
-                  height: 70,
-                  width: 120,
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black38.withOpacity(0.25),
-                        spreadRadius: 0.5,
-                        blurRadius: 10,
-                        offset: Offset(3, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  child: Center(
-                    child: Text(
-                      'False',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.white,
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
             ],
           ),
           SizedBox(
             height: 10,
           ),
+          //hold true false icons based on the user answer.
           Row(
             children: scoreKeeper,
           ),
