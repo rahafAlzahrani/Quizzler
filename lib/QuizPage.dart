@@ -72,8 +72,8 @@ class _QuizPageState extends State<QuizPage> {
     });
   }
 
-  TextButton buildButton({bool answer, Color buttonColor, String buttonText}) {
-    return TextButton(
+  FlatButton buildButton({bool answer, Color buttonColor, String buttonText}) {
+    return FlatButton(
       onPressed: () {
         checkAnswer(answer);
       },
@@ -82,15 +82,10 @@ class _QuizPageState extends State<QuizPage> {
             ? EdgeInsets.only(left: 20)
             : EdgeInsets.only(right: 20),
         height: 70,
-        width: 120,
+        width: 130,
         decoration: BoxDecoration(
           color: buttonColor,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-            bottomLeft: Radius.circular(20),
-            bottomRight: Radius.circular(20),
-          ),
+          borderRadius: BorderRadius.circular(20.0),
           boxShadow: [
             BoxShadow(
               color: Colors.black38.withOpacity(0.25),
@@ -105,7 +100,7 @@ class _QuizPageState extends State<QuizPage> {
             buttonText,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 30,
+              fontSize: 26,
               fontWeight: FontWeight.w800,
               color: Colors.white,
               decoration: TextDecoration.none,
@@ -130,7 +125,7 @@ class _QuizPageState extends State<QuizPage> {
         bottom: 16.0,
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           //hold the question
           Container(
@@ -139,8 +134,8 @@ class _QuizPageState extends State<QuizPage> {
               right: 30,
               bottom: 20,
             ),
-            padding: EdgeInsets.all(2),
-            height: 300,
+            padding: EdgeInsets.all(10),
+            height: 400,
             width: size.width - 50,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -168,7 +163,7 @@ class _QuizPageState extends State<QuizPage> {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 20,
           ),
 
           //hold true and false buttons
@@ -188,7 +183,7 @@ class _QuizPageState extends State<QuizPage> {
           SizedBox(
             height: 10,
           ),
-          //hold true false icons based on the user answer.
+          //hold true false  icons based on the user answer.
           Row(
             children: scoreKeeper,
           ),
